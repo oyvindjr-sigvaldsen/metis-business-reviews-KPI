@@ -1,2 +1,3 @@
 *.byebug_history
 *.db
+mysql_credentials.json
