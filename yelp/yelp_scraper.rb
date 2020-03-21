@@ -4,27 +4,12 @@ def yelp_scraper(test_cases)
 
 	# business info xpath array
 	business_info_xpaths = [
-						[
 							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/div[1]/h1", # name
-							method(:text)
-						],
-						[
 							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/div[2]/div[2]/p", # num reviews
-							method(:text)
-						],
-						[
 							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/span[1]/span", # price point
-							method(:text)
-						],
-						[
 							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/span[2]", # cuisine(s)
-							method(:text)
-						],
-						[
 							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/div[2]/div[1]/span/div", # star rating
-							method(:text)
 						]
-					]
 
 	# TODO: create class for business, business_info and review
 
@@ -36,11 +21,15 @@ def yelp_scraper(test_cases)
 
 			business_info_xpaths.each_with_index do |xpath, i|
 
+				if i != 4
+					info = parsed_page.xpath(xpath).method(:text)
+					puts info.call
+				else
+					info = parsed_page.xpath(xpath).attribute("arial-label")
+				end
 
-				info = parsed_page.xpath()
-				#puts info.call
+			end
 		end
-	end
 
 	# catch 'no such file'
 	rescue Errno::ENOENT => error
