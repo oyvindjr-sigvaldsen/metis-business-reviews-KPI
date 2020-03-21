@@ -1,5 +1,6 @@
 require_relative "../requirements"
 require_relative "classes/business_info"
+require_relative "../global-modules/retrieve_sql_credentials"
 
 def yelp_scraper(test_cases)
 
@@ -43,15 +44,6 @@ def yelp_scraper(test_cases)
 	end
 end
 
-def retrieve_sql_credentials(credentials_path)
-
-	credentials_file = open(credentials_path)
-	json = credentials_file.read
-	parsed_json = JSON.parse(json)
-
-	return parsed_json["username"], parsed_json["password"]
-end
-
 # using hardcoded biz paths and .html files for testing purposes
 test_cases = [
 				"test-cases/little_nepal.html",
@@ -60,8 +52,7 @@ test_cases = [
 
 yelp_scraper(test_cases)
 
-retrieve_sql_credentials("../mysql_credentials.json")
-
+username, password = retrieve_sql_credentials("../mysql_credentials.json")
 
 #@db_host  = "localhost"
 #@db_user  =
