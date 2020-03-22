@@ -11,4 +11,8 @@ class BusinessInfo
 	def display
 		puts "\n**#{@name}**\n#{@number_of_reviews}\n#{@price_point}\n#{@cuisines}\n#{@star_rating}\n"
 	end
+
+	def hash
+		[@name.to_s, @number_of_reviews.chomp("reviews").to_i, @price_point.to_s.chomp(" "), @cuisines.to_s.split(","), @star_rating.to_s.chomp("star rating")]
+	end
 end
