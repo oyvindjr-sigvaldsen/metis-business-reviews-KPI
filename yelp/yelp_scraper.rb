@@ -46,19 +46,28 @@ def business_info_scraper(test_cases)
 	end
 end
 
-def push_business_info_sql(business_info_instances, db_name)
+def push_business_info_sql(business_info_instances)
+
+	# https://docs.microsoft.com/en-us/azure/mysql/connect-ruby
+	username, password = retrieve_sql_credentials("../mysql_credentials.json")
+	connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
+
+	connection.query("DELETE FROM business_info")
 
 	business_info_instances.each do |instance|
 
 		begin
-			# https://docs.microsoft.com/en-us/azure/mysql/connect-ruby
-			username, password = retrieve_sql_credentials("../mysql_credentials.json")
 			connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
+			connection.query("INSERT INTO business_info VALUES(
+																'#{instance.instance_variable_get(:@name)}',
+																 #{instance.instance_variable_get(:@number_of_reviews)},
+																 '#{instance.instance_variable_get(:@price_point)}',
+																 '#{instance.instance_variable_get(:@cuisines)}',
+																  #{instance.instance_variable_get(:@star_rating)}
+															)")
+			connection.close
 
-
-			values = *instance.hash
-			#response = connection.query("INSERT INTO #{db_name} VALUES(#{values})")
-
+		# catch Mysql2 syntax and other errors
 		rescue Mysql2::Error => error
 			puts error
 		end
@@ -72,4 +81,4 @@ test_cases = [
 			]
 
 business_info_instances = business_info_scraper(test_cases)
-push_business_info_sql(business_info_instances, "business_info")
+push_business_info_sql(business_info_instances)
