@@ -2,7 +2,7 @@ require_relative "../requirements"
 require_relative "classes/business_info"
 require_relative "../global-modules/retrieve_sql_credentials"
 
-def yelp_scraper(test_cases)
+def business_info_scraper(test_cases)
 
 	# business info xpath array
 	business_info_xpaths = [
@@ -15,6 +15,7 @@ def yelp_scraper(test_cases)
 
 	# TODO: create class for business, review, review_user
 	begin
+		business_info_instances = []
 
 		test_cases.each do |test_case|
 
@@ -25,22 +26,42 @@ def yelp_scraper(test_cases)
 			business_info_xpaths.each_with_index do |xpath, i|
 
 				# add index exceptions (int)
-				if i != 4
+				if i == 4
+					info = parsed_page.xpath(xpath).attribute("aria-label")
+					business_info.push(info)
+				else
 					info = parsed_page.xpath(xpath).method(:text)
 					business_info.push(info.call.to_s)
-				else
-					info = parsed_page.xpath(xpath).attribute("arial-label")
-					business_info.push(info)
 				end
 			end
 
 			business_info_instance = BusinessInfo.new(*business_info)
-			business_info_instance.display
+			business_info_instances.push(business_info_instance)
 		end
+		return business_info_instances
 
 	# catch 'no such file'
 	rescue Errno::ENOENT => error
 		puts error
+	end
+end
+
+def push_business_info_sql(business_info_instances, db_name)
+
+	business_info_instances.each do |instance|
+
+		begin
+			# https://docs.microsoft.com/en-us/azure/mysql/connect-ruby
+			username, password = retrieve_sql_credentials("../mysql_credentials.json")
+			connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
+
+
+			values = *instance.hash
+			#response = connection.query("INSERT INTO #{db_name} VALUES(#{values})")
+
+		rescue Mysql2::Error => error
+			puts error
+		end
 	end
 end
 
@@ -50,11 +71,5 @@ test_cases = [
 				"test-cases/blue_plate.html"
 			]
 
-yelp_scraper(test_cases)
-
-username, password = retrieve_sql_credentials("../mysql_credentials.json")
-
-#@db_host  = "localhost"
-#@db_user  =
-#@db_pass  =
-#@db_name = "metis_development"
+business_info_instances = business_info_scraper(test_cases)
+push_business_info_sql(business_info_instances, "business_info")
