@@ -76,8 +76,8 @@ end
 
 # using hardcoded biz paths and .html files for testing purposes
 test_cases = [
-				"test-cases/little_nepal.html",
-				"test-cases/blue_plate.html"
+				"business-html-files/little_nepal.html",
+				"business-html-files/blue_plate.html"
 			]
 
 business_info_instances = business_info_scraper(test_cases)

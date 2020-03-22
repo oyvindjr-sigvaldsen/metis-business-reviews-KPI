@@ -1,0 +1,12 @@
+{
+	"business_urls": [
+		{
+			"business_name": "little_nepal",
+			"url": "https://www.yelp.com/biz/little-nepal-san-francisco"
+		},
+		{
+			"business_name": "blue_plate",
+			"url": "https://www.yelp.com/biz/blue-plate-san-francisco"
+		}
+	]
+}
