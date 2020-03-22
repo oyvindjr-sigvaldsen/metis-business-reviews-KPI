@@ -5,6 +5,7 @@ GEM
     mini_portile2 (2.4.0)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    ruby-mysql (2.9.14)
 
 PLATFORMS
   ruby
@@ -12,6 +13,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   nokogiri
+  ruby-mysql
 
 BUNDLED WITH
    1.17.2
