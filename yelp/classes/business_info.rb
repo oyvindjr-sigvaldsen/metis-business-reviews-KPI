@@ -1,11 +1,11 @@
 class BusinessInfo
 
 	def initialize(name, number_of_reviews, price_point, cuisines, star_rating)
-		@name = name
-		@number_of_reviews = number_of_reviews
-		@price_point = price_point
-		@cuisines = cuisines
-		@star_rating = star_rating
+		@name = name.to_s
+		@number_of_reviews = number_of_reviews.chomp("reviews").to_i
+		@price_point = price_point.to_s.chomp(" ")
+		@cuisines = cuisines.to_s.split(",").to_s
+		@star_rating = star_rating.to_s.chomp("star rating")
 	end
 
 	def display
