@@ -15,7 +15,11 @@ let END=10 i=1
 while ((i<=END)); do
 
 	random_sleep=$(shuf -i 1-60 -n 1);
-	sleep $random_sleep;
+	random_proxy=$(shuf -n 1 proxy_list.txt);
+
+	source ./progress-bar.sh;
+	echo "random_sleep : "$random_sleep" seconds";
+	progress-bar $random_sleep;
 
 	cluster=(
 				$(jq -r ".business_urls[$i] .business_name" business_urls.json)
