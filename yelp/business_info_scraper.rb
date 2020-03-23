@@ -54,13 +54,13 @@ def push_business_info_sql(business_info_instances)
 	username, password = retrieve_sql_credentials("../mysql_credentials.json")
 	connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
 
-	connection.query("DELETE FROM business_info")
+	connection.query("DELETE FROM yelp_business_info")
 
 	business_info_instances.each do |instance|
 
 		begin
 			connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
-			connection.query("INSERT INTO business_info VALUES(
+			connection.query("INSERT INTO yelp_business_info VALUES(
 																'#{instance.instance_variable_get(:@name)}',
 																'#{instance.instance_variable_get(:@number_of_reviews)}',
 																'#{instance.instance_variable_get(:@price_point)}',
