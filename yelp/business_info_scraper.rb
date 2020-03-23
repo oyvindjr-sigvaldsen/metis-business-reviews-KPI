@@ -21,7 +21,6 @@ def business_info_scraper(html_files)
 
 		html_files.each do |html_file|
 
-			# TODO: make use open-uri or net/http to open live webpage using URL
 			parsed_page = Nokogiri::HTML(open(html_file))
 			business_info = []
 
