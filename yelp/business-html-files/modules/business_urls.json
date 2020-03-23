@@ -7,6 +7,38 @@
 		{
 			"business_name": "blue_plate",
 			"url": "https://www.yelp.com/biz/blue-plate-san-francisco"
+		},
+		{
+			"business_name": "brendas_french_soul_food",
+			"url": "https://www.yelp.com/biz/brendas-french-soul-food-san-francisco-5"
+		},
+		{
+			"business_name": "gary_denko",
+			"url": "https://www.yelp.com/biz/gary-danko-san-francisco"
+		},
+		{
+			"business_name": "tartine_bakery_and_cafe",
+			"url": "https://www.yelp.com/biz/tartine-bakery-and-cafe-san-francisco"
+		},
+		{
+			"business_name": "the_house",
+			"url": "https://www.yelp.com/biz/the-house-san-francisco"
+		},
+		{
+			"business_name": "burma_superstar",
+			"url": "https://www.yelp.com/biz/burma-superstar-san-francisco-2"
+		},
+		{
+			"business_name": "kokkari_estiatorio",
+			"url": "https://www.yelp.com/biz/kokkari-estiatorio-san-francisco"
+		},
+		{
+			"business_name": "san_tung",
+			"url": "https://www.yelp.com/biz/san-tung-san-francisco-2"
+		},
+		{
+			"business_name": "b_patisserie",
+			"url": "https://www.yelp.com/biz/b-patisserie-san-francisco-2"
 		}
 	]
 }
