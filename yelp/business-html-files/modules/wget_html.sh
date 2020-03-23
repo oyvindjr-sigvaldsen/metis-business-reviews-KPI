@@ -28,7 +28,7 @@ while ((i<=END)); do
 
 	url=${cluster[1]};
 
-	try=$(wget -e use_proxy=yes http_proxy="http://"$random_proxy --output-document="../${cluster[0]}.html" $url);
+	try=$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="../${cluster[0]}.html" $url);
 	fail=$(wget --output-document="../${cluster[0]}.html" $url);
 
 	$try || $fail;
