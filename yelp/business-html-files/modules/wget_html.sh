@@ -6,15 +6,15 @@
 
 # clear business-html-files dir
 cd ..; rm *.html; cd modules;
-
 num_businesses= jq ".business_urls | length" business_urls.json;
 
 typeset -i i END
-let END=10 i=1
+let END=10 i=0
 
 while ((i<=END)); do
 
-	random_sleep=$(shuf -i 1-60 -n 1);
+	max_sleep=60
+	random_sleep=$(shuf -i 1-$max_sleep -n 1);
 	random_proxy=$(shuf -n 1 proxy_list.txt);
 
 	source ./progress-bar.sh;
@@ -28,9 +28,9 @@ while ((i<=END)); do
 
 	url=${cluster[1]};
 
-	try=wget -e use_proxy=yes -e http_proxy="http://"$random_proxy --output-document="../${cluster[0]}.html" $url;
-	fail=wget --output-document="../${cluster[0]}.html" $url;
+	try=$(wget -e use_proxy=yes http_proxy="http://"$random_proxy --output-document="../${cluster[0]}.html" $url);
+	fail=$(wget --output-document="../${cluster[0]}.html" $url);
 
-	try || fail
+	$try || $fail;
 	let i++;
 done
