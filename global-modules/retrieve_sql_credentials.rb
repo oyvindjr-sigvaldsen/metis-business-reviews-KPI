@@ -1,5 +1,3 @@
-require "json"
-
 def retrieve_sql_credentials(credentials_path)
 
 	credentials_file = open(credentials_path)
