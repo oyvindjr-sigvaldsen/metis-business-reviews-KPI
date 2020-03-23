@@ -9,7 +9,7 @@ cd ..; rm *.html; cd modules;
 num_businesses= jq ".business_urls | length" business_urls.json;
 
 typeset -i i END
-let END=10 i=0
+let END=9 i=0
 
 while ((i<=END)); do
 
