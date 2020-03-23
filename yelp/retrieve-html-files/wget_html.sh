@@ -34,3 +34,8 @@ while ((i<=END)); do
 	$try || $fail;
 	let i++;
 done
+
+# TODO: update wget_html.sh to same file found on the tripadvisor-webscraper branch
+# TODO: merge business_urls.json from yelp and tripadvisor branches and move to global dir scope
+# TODO: move single proxy_list.txt to global scope, same folder as business_urls.json (merged version)
+# TODO: move single progress-bar.sh to global scope, same folder as business_Urls.json and proxy_list.txt
