@@ -14,6 +14,9 @@ let END=10 i=1
 
 while ((i<=END)); do
 
+	random_sleep=$(shuf -i 1-60 -n 1);
+	sleep $random_sleep;
+
 	cluster=(
 				$(jq -r ".business_urls[$i] .business_name" business_urls.json)
 				$(jq -r ".business_urls[$i] .url" business_urls.json)
