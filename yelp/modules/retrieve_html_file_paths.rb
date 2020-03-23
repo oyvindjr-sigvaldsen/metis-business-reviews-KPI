@@ -1,4 +1,6 @@
-def retrieve_html_file_paths(json_file_path)
+def retrieve_html_file_paths()
+
+	json_file_path = "retrieve-html-files/data-files/business_urls.json"
 
 	begin
 		business_urls = File.open json_file_path
@@ -10,7 +12,7 @@ def retrieve_html_file_paths(json_file_path)
 
 		(0..main_array.length-1).step(1) do |i|
 			business_name = main_array[i]["business_name"]
-			html_files.push("business-html-files/#{business_name}.html")
+			html_files.push("retrieve-html-files/html-files/#{business_name}.html")
 		end
 
 		return html_files

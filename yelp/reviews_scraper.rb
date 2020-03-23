@@ -11,6 +11,7 @@ def reviews_scraper(html_files)
 							"#wrap > div.main-content-wrap.main-content-wrap--full > div > div.lemon--div__373c0__1mboc.u-space-t3.u-space-b6.border-color--default__373c0__2oFDT > div > div > div.lemon--div__373c0__1mboc.stickySidebar--heightContext__373c0__133M8.tableLayoutFixed__373c0__12cEm.arrange__373c0__UHqhV.u-space-b6.u-padding-b4.border--bottom__373c0__uPbXS.border-color--default__373c0__2oFDT > div.lemon--div__373c0__1mboc.arrange-unit__373c0__1piwO.arrange-unit-grid-column--8__373c0__2yTAx.u-padding-r6.border-color--default__373c0__2oFDT > div:nth-child(9) > section:nth-child(2) > div.lemon--div__373c0__1mboc.spinner-container__373c0__N6Hff.border-color--default__373c0__2oFDT > div > ul > li:nth-child(4) > div > div.lemon--div__373c0__1mboc.arrange-unit__373c0__1piwO.arrange-unit-grid-column--8__373c0__2yTAx.border-color--default__373c0__2oFDT > div.lemon--div__373c0__1mboc.u-space-t1.u-space-b1.border-color--default__373c0__2oFDT > div > div.lemon--div__373c0__1mboc.arrange-unit__373c0__1piwO.arrange-unit-fill__373c0__17z0h.border-color--default__373c0__2oFDT > span" #date
 						]
 
+
 	# prerequisites
 	review_number = 1
 	number_reviews_page = 20
@@ -38,5 +39,5 @@ def reviews_scraper(html_files)
 	end
 end
 
-html_files = retrieve_html_file_paths("business-html-files/modules/business_urls.json")
+html_files = retrieve_html_file_paths()
 reviews_scraper(html_files)

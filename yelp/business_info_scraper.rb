@@ -76,6 +76,6 @@ def push_business_info_sql(business_info_instances)
 	end
 end
 
-html_files = retrieve_html_file_paths("business-html-files/modules/business_urls.json")
+html_files = retrieve_html_file_paths()
 business_info_instances = business_info_scraper(html_files)
 push_business_info_sql(business_info_instances)
