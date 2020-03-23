@@ -60,10 +60,10 @@ def push_business_info_sql(business_info_instances)
 			connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
 			connection.query("INSERT INTO business_info VALUES(
 																'#{instance.instance_variable_get(:@name)}',
-																 #{instance.instance_variable_get(:@number_of_reviews)},
-																 '#{instance.instance_variable_get(:@price_point)}',
-																 '#{instance.instance_variable_get(:@cuisines)}',
-																  #{instance.instance_variable_get(:@star_rating)}
+																'#{instance.instance_variable_get(:@number_of_reviews)}',
+																'#{instance.instance_variable_get(:@price_point)}',
+																'#{instance.instance_variable_get(:@cuisines)}',
+																'#{instance.instance_variable_get(:@star_rating)}'
 															)")
 			connection.close
 
@@ -76,10 +76,27 @@ end
 
 # using hardcoded biz paths and .html files for testing purposes
 # TODO: read file names from business_urls.json
-html_files = [
-				"business-html-files/little_nepal.html",
-				"business-html-files/blue_plate.html"
-			]
 
+def retrieve_html_file_paths(json_file_path)
+
+	begin
+		business_urls = File.open json_file_path
+		json_data = JSON.load business_urls
+		business_urls.close
+
+		main_array = json_data["business_urls"]
+		html_files = []
+
+		(0..main_array.length-1).step(1) do |i|
+			business_name = main_array[i]["business_name"]
+			html_files.push("business-html-files/#{business_name}.html")
+		end
+		return html_files
+	rescue
+		puts "Unknown error occured whilst retrieving html file paths"
+	end
+end
+
+html_files = retrieve_html_file_paths("business-html-files/modules/business_urls.json")
 business_info_instances = business_info_scraper(html_files)
 push_business_info_sql(business_info_instances)
