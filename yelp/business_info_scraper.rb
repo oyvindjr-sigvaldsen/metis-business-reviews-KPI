@@ -1,6 +1,8 @@
 require_relative "../requirements"
-require_relative "classes/business_info"
 require_relative "../global-modules/retrieve_sql_credentials"
+
+require_relative "classes/business_info"
+require_relative "modules/retrieve_html_file_paths"
 
 def business_info_scraper(html_files)
 
@@ -71,29 +73,6 @@ def push_business_info_sql(business_info_instances)
 		rescue Mysql2::Error => error
 			puts error
 		end
-	end
-end
-
-# using hardcoded biz paths and .html files for testing purposes
-# TODO: read file names from business_urls.json
-
-def retrieve_html_file_paths(json_file_path)
-
-	begin
-		business_urls = File.open json_file_path
-		json_data = JSON.load business_urls
-		business_urls.close
-
-		main_array = json_data["business_urls"]
-		html_files = []
-
-		(0..main_array.length-1).step(1) do |i|
-			business_name = main_array[i]["business_name"]
-			html_files.push("business-html-files/#{business_name}.html")
-		end
-		return html_files
-	rescue
-		puts "Unknown error occured whilst retrieving html file paths"
 	end
 end
 

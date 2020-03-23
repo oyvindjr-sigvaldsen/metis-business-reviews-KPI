@@ -1,6 +1,8 @@
 require_relative "../requirements"
-require_relative "classes/review"
 require_relative "../global-modules/retrieve_sql_credentials"
+
+require_relative "classes/review"
+require_relative "modules/retrieve_html_file_paths"
 
 def reviews_scraper(html_files)
 
@@ -36,12 +38,5 @@ def reviews_scraper(html_files)
 	end
 end
 
-
-# using hardcoded biz paths and .html files for testing purposes
-# TODO: read file names from business_urls.json
-html_files = [
-				"business-html-files/little_nepal.html",
-				"business-html-files/blue_plate.html"
-			]
-
+html_files = retrieve_html_file_paths("business-html-files/modules/business_urls.json")
 reviews_scraper(html_files)
