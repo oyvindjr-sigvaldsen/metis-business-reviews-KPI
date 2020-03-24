@@ -1,8 +1,8 @@
-require_relative "../requirements"
-require_relative "../global-modules/retrieve_sql_credentials"
+require_relative "../../requirements"
+require_relative "../../global-classes/review"
 
-require_relative "classes/review"
-require_relative "modules/retrieve_html_file_paths"
+require_relative "../../global-modules/retrieve_sql_credentials"
+require_relative "../../global-modules/retrieve_html_file_paths"
 
 def reviews_scraper(html_files)
 
@@ -10,5 +10,5 @@ def reviews_scraper(html_files)
 	nil
 end
 
-html_files = retrieve_html_file_paths()
+html_files = retrieve_html_file_paths("retrieve-html-files/data-files/business_urls.json")
 reviews_scraper(html_files)

@@ -1,8 +1,9 @@
-require_relative "../requirements"
-require_relative "../global-modules/retrieve_sql_credentials"
+require_relative "../../requirements"
+require_relative "../../global-classes/business_info"
 
-require_relative "classes/business_info"
-require_relative "modules/retrieve_html_file_paths"
+require_relative "../../global-modules/retrieve_sql_credentials"
+require_relative "../../global-modules/push_business_info_sql"
+require_relative "../../global-modules/retrieve_html_file_paths"
 
 def business_info_scraper(html_files)
 
@@ -36,7 +37,13 @@ def business_info_scraper(html_files)
 				end
 			end
 
-			business_info_instance = BusinessInfo.new(*business_info)
+			business_info_instance = BusinessInfo.new(
+														business_info[0].to_s.tr("'", ""),
+														business_info[1].chomp("reviews").to_i,
+														business_info[2].to_s.chomp(" "),
+														business_info[3].to_s.tr(" ", "").split(",").to_a,
+														business_info[4].to_s.chomp("star rating").to_f
+													)
 			business_info_instances.push(business_info_instance)
 		end
 		return business_info_instances
@@ -47,34 +54,6 @@ def business_info_scraper(html_files)
 	end
 end
 
-def push_business_info_sql(business_info_instances)
-
-	# https://docs.microsoft.com/en-us/azure/mysql/connect-ruby
-	username, password = retrieve_sql_credentials("../mysql_credentials.json")
-	connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
-
-	connection.query("DELETE FROM yelp_business_info")
-
-	business_info_instances.each do |instance|
-
-		begin
-			connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
-			connection.query("INSERT INTO yelp_business_info VALUES(
-																'#{instance.instance_variable_get(:@name)}',
-																'#{instance.instance_variable_get(:@number_of_reviews)}',
-																'#{instance.instance_variable_get(:@price_point)}',
-																'#{instance.instance_variable_get(:@cuisines)}',
-																'#{instance.instance_variable_get(:@star_rating)}'
-															)")
-			connection.close
-
-		# catch Mysql2 syntax and other errors
-		rescue Mysql2::Error => error
-			puts error
-		end
-	end
-end
-
-html_files = retrieve_html_file_paths()
+html_files = retrieve_html_file_paths("retrieve-html-files/data-files/business_urls.json")
 business_info_instances = business_info_scraper(html_files)
-push_business_info_sql(business_info_instances)
+push_business_info_sql(business_info_instances, "yelp_business_info")
