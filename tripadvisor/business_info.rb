@@ -1,19 +1,10 @@
 require_relative "../requirements"
 require_relative "../global-modules/retrieve_sql_credentials"
 
-require_relative "classes/business_info"
-require_relative "modules/retrieve_html_file_paths"
+require_relative "../global-classes/business_info"
+require_relative "../global-modules/retrieve_html_file_paths"
 
 def business_info_scraper(html_files)
-
-	# business info xpath array
-	business_info_xpaths = [
-							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/div[1]/h1", # name
-							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/div[2]/div[2]/p", # num reviews
-							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/span[1]/span", # price point
-							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/span[2]", # cuisine(s)
-							"//*[@id='wrap']/div[3]/div/div[3]/div/div/div[2]/div[1]/div[1]/div/div/div[2]/div[1]/span/div", # star rating
-						]
 
 	# TODO: create class for business, review_user
 	begin
@@ -23,22 +14,23 @@ def business_info_scraper(html_files)
 
 			# TODO: make use open-uri or net/http to open live webpage using URL
 			parsed_page = Nokogiri::HTML(open(html_file))
-			business_info = []
 
-			business_info_xpaths.each_with_index do |xpath, i|
+			begin
 
-				# add index exceptions (int)
-				if i == 4
-					info = parsed_page.xpath(xpath).attribute("aria-label")
-					business_info.push(info)
-				else
-					info = parsed_page.xpath(xpath).method(:text)
-					business_info.push(info.call.to_s)
-				end
+				name = parsed_page.css("h1").text
+				num_reviews = parsed_page.css("a.restaurants-detail-overview-cards-RatingsOverviewCard__ratingCount--DFxkG").text
+				price_point = parsed_page.xpath("//*[@id='taplc_resp_rr_top_info_rr_resp_0']/div/div[3]/div[3]/div/a[1]").text
+
+				cuisines = []
+				raw_cuisines = parsed_page.css("div.header_links").css("a").to_a.drop(1)
+				puts raw_cuisines.length
+
+				#business_info_instance = BusinessInfo.new(name, number_of_reviews, price_point, )
+				#business_info_instances.push(business_info_instance)
+
+			rescue
+				next
 			end
-
-			business_info_instance = BusinessInfo.new(*business_info)
-			business_info_instances.push(business_info_instance)
 		end
 		return business_info_instances
 
@@ -76,6 +68,7 @@ def push_business_info_sql(business_info_instances)
 	end
 end
 
-html_files = retrieve_html_file_paths()
+html_files = retrieve_html_file_paths("retrieve-html-files/data-files/business_urls.json")
+puts html_files
 business_info_instances = business_info_scraper(html_files)
-push_business_info_sql(business_info_instances)
+#push_business_info_sql(business_info_instances)
