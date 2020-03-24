@@ -5,33 +5,32 @@
 # english wget log command : export LANG=en_GB.UTF-8
 
 # clear business-html-files dir
-cd ..; rm *.html; cd modules;
-num_businesses= jq ".business_urls | length" business_urls.json;
+cd html-files; rm *.html; cd ..;
+num_businesses=$(jq ".business_urls | length" data-files/business_urls.json);
+
+echo $num_businesses;
 
 typeset -i i END
-let END=9 i=0
+let END=$num_businesses i=0;
 
-while ((i<=END)); do
+while ((i<=END-1)); do
 
 	max_sleep=60
 	random_sleep=$(shuf -i 1-$max_sleep -n 1);
-	random_proxy=$(shuf -n 1 proxy_list.txt);
+	random_proxy=$(shuf -n 1 data-files/proxy_list.txt);
 
 	source ./progress-bar.sh;
 	echo "random_sleep : "$random_sleep" seconds";
 	progress-bar $random_sleep;
 
 	cluster=(
-				$(jq -r ".business_urls[$i] .business_name" business_urls.json)
-				$(jq -r ".business_urls[$i] .url" business_urls.json)
+				$(jq -r ".business_urls[$i] .business_name" data-files/business_urls.json)
+				$(jq -r ".business_urls[$i] .url" data-files/business_urls.json)
 			);
 
 	url=${cluster[1]};
+	$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="html-files/${cluster[0]}.html" $url); true || $(wget --output-document="html-files/${cluster[0]}.html" $url);
 
-	try=$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="../${cluster[0]}.html" $url);
-	fail=$(wget --output-document="../${cluster[0]}.html" $url);
-
-	$try || $fail;
 	let i++;
 done
 
