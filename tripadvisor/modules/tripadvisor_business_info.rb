@@ -1,9 +1,9 @@
-require_relative "../requirements"
-require_relative "../global-classes/business_info"
+require_relative "../../requirements"
+require_relative "../../global-classes/business_info"
 
-require_relative "../global-modules/retrieve_sql_credentials"
-require_relative "../global-modules/push_business_info_sql"
-require_relative "../global-modules/retrieve_html_file_paths"
+require_relative "../../global-modules/retrieve_sql_credentials"
+require_relative "../../global-modules/push_business_info_sql"
+require_relative "../../global-modules/retrieve_html_file_paths"
 
 def business_info_scraper(html_files)
 
