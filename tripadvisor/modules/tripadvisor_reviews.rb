@@ -19,16 +19,23 @@ def reviews_scraper(html_files)
 			business_urls.close
 
 			html_file_url = json_data["business_urls"][i]["url"]
-			browser = Watir::Browser.new :safari
-			browser.goto(html_file_url)
+			#browser = Watir::Browser.new :safari
+			#browser.goto(html_file_url)
 
 			review_wrapper = parsed_page.css("div.ui_column")
 			titles = []
+
+			# for clicking "more" buttons and revealing full review text
+			#more_onclick_span =  browser.spans(visible: true, class: ["taLnk", "ulBlueLinks"])
+			#more_onclick_span[0].fire_event :click
+
+			#sleep 2
 
 			# 0.. num of reviews per page = 10
 			(0..review_wrapper.css("span.noQuotes").length-1).step(1) do |i|
 
 				begin
+
 					# title
 					raw_title = review_wrapper.css("span.noQuotes")[i].text.gsub!(/^\“|\”?$/, "").tr("'", "")
 
@@ -55,28 +62,32 @@ def reviews_scraper(html_files)
 					star_rating = raw_star_rating.attribute("class").text.scan(/\d+/).first.to_f / 10.00
 
 					# text
-					raw_text = review_wrapper.css("div.entry")[i].text
+					#text_raw = browser.ps(visible: true, class: "partial_entry")[i].inner_text
 
-					# capitalize every letter following full stops and other sentence enders
-					text =  raw_text.split.join(" ").gsub(/([a-z])((?:[^.?!]|\.(?=[a-z]))*)/i) { $1.upcase + $2.rstrip }
-					puts title, text
+					# 	>> capitalize every letter following full stops and other sentence enders
+					#text = text_raw.split.join(" ").gsub(/([a-z])((?:[^.?!]|\.(?=[a-z]))*)/i) { $1.upcase + $2.rstrip }
 
-					# <span class="taLnk ulBlueLinks" onclick="widgetEvCall('handlers.clickExpand',event,this);">More</span>
-					# <span class="taLnk ulBlueLinks" onclick="widgetEvCall('handlers.clickExpand',event,this);">More</span>
-					# <span class="taLnk ulBlueLinks" onclick="widgetEvCall('handlers.clickExpand',event,this);">More</span>
+					# photos
+					begin
 
-					# <span class="taLnk ulBlueLinks" onclick="widgetEvCall('handlers.clickExpand',event,this);">More</span>
-					#tag_name
-					#hidden_text = browser.hiddens(:class=>"taLnk", :tag_name=>"span",  :type=>"hidden").first.value
-					puts "@@@@@@@@@@@@@@@@@@@\n"
+						puts title
+						photos_raw = review_wrapper.css("div.inlinePhotosWrapper")[0].css("img.centeredImg").length
+						pp photos_raw
 
+						if photos_raw.include? ".jpg"
+							pp photos_raw
+						else
+							nil
+							pp photos_raw
+						end
 
-					
+					rescue
+						"NO IMAGE"
+						next
+					end
 
-
-					#hidden_text.value
-					puts "@@@@@@@@@@@@@@@@@@@\n"
-
+					#puts text
+					puts "_________________\n"
 					puts "_________________\n"
 
 				# in case of nil value error
@@ -86,7 +97,7 @@ def reviews_scraper(html_files)
 					next
 				end
 			end
-			browser.quit
+			#browser.quit
 			puts "\n\n"
 		end
 
