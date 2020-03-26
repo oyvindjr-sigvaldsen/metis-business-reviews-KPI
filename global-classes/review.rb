@@ -1,6 +1,7 @@
 class Review
 
-	def initialize(title, visit_date, review_date, star_rating, text, photos, username, number_of_reviews)
+	def initialize(business_name, title, visit_date, review_date, star_rating, text, photos, username, number_of_reviews)
+		@business_name = business_name
 		@title = title
 		@visit_date = visit_date
 		@review_date = review_date

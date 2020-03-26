@@ -11,6 +11,7 @@ def push_reviews_sql(review_instances, sql_table)
 		begin
 			connection = Mysql2::Client.new(:host => "localhost", :username => username, :database => "metis_development", :password => password)
 			connection.query("INSERT INTO #{sql_table} VALUES(
+																'#{instance.instance_variable_get(:@business_name)}',
 																'#{instance.instance_variable_get(:@title)}',
 																'#{instance.instance_variable_get(:@visit_date)}',
 																'#{instance.instance_variable_get(:@review_date)}',

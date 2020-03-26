@@ -36,6 +36,9 @@ def reviews_scraper(html_files)
 
 				begin
 
+					# business_name
+					business_name =  html_file[31...].to_s.chomp(".html")
+
 					# title
 					raw_title = review_wrapper.css("span.noQuotes")[i].text.gsub!(/^\“|\”?$/, "").tr("'", "")
 
@@ -82,6 +85,10 @@ def reviews_scraper(html_files)
 						nil
 					end
 
+					if photos.length == 0
+						photos = nil
+					end
+
 					# username
 					username_raw = parsed_page.css("div.member_info")[i]
 
@@ -91,7 +98,7 @@ def reviews_scraper(html_files)
 					number_of_reviews_raw = parsed_page.css("span.badgeText")
 					number_of_reviews = number_of_reviews_raw[i].text.chomp("reviews").split.join(" ").to_i
 
-					review_instance = Review.new(title, visit_date.to_s, review_date.to_s, star_rating, text, photos, username, number_of_reviews)
+					review_instance = Review.new(business_name, title, visit_date.to_s, review_date.to_s, star_rating, text, photos, username, number_of_reviews)
 					review_instances.push(review_instance)
 
 				# in case of nil value error
