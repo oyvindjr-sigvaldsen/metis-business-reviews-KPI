@@ -2,7 +2,7 @@ require_relative "../../requirements"
 require_relative "../../global-classes/review"
 
 require_relative "../../global-modules/sql/retrieve_sql_credentials"
-require_relative "../../global-modules/sql/push_review_sql"
+require_relative "../../global-modules/sql/push_reviews_sql"
 
 require_relative "../../global-modules/retrieve_file_paths"
 
@@ -42,6 +42,7 @@ def reviews_parser(json_file_paths)
 
 				if star_rating == "0"
 					star_rating = nil
+				end
 
 				# text
 				text = review["review"]["review_text"].split.join(" ").gsub(/([a-z])((?:[^.?!]|\.(?=[a-z]))*)/i) { $1.upcase + $2.rstrip }.tr("''", "").to_s.gsub(/[^[:alnum:][:blank:][:punct:]]/, '').squeeze(' ').strip

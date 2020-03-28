@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # clear json-files dir
-cd json-files; rm *.json; cd ..;
+cd files; rm *.json; cd ..;
 
 num_businesses=$(jq ".business_ids | length" data-files/business_ids.json);
 echo $num_businesses;
@@ -25,6 +25,6 @@ while ((i<=END-1)); do
 	id=${cluster[1]};
 
 	api_retrieve_reviews_url="https://api.zomato.com/v2/reviews.json/$id/user?count=100&apikey=$api_key"
-	$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="json-files/$business_name.json" $api_retrieve_reviews_url); true || $(wget --output-document="json-files/$business_name.json" $api_retrieve_reviews_url);
+	$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="files/$business_name.json" $api_retrieve_reviews_url); true || $(wget --output-document="files/$business_name.json" $api_retrieve_reviews_url);
 	let i++;
 done
