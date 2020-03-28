@@ -10,7 +10,7 @@ def retrieve_file_paths(json_file_path, json_array_name, extension)
 
 		(0..main_array.length-1).step(1) do |i|
 			business_name = main_array[i]["business_name"]
-			file_paths.push("retrieve-files/files#{business_name}#{extension}")
+			file_paths.push("retrieve-files/files/#{business_name}#{extension}")
 		end
 
 		return file_paths
