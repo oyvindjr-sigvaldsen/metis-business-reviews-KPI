@@ -1,0 +1,82 @@
+[
+    {
+        "business_name": "little_nepal",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/little-nepal-san-francisco",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d368725-Reviews-Little_Nepal-San_Francisco_California.html",
+            "zomato_id": 16846381
+        }
+    },
+    {
+        "business_name": "blue_plate",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/blue-plate-san-francisco",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d368729-Reviews-Blue_Plate-San_Francisco_California.html",
+            "zomato_id": 16840874
+        }
+    },
+    {
+        "business_name": "brendas_french_soul_food",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/brendas-french-soul-food-san-francisco-5",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d1199164-Reviews-Brenda_s_French_Soul_Food-San_Francisco_California.html",
+            "zomato_id": 16853056
+        }
+    },
+    {
+        "business_name": "gary_denko",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/gary-danko-san-francisco",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d370412-Reviews-Restaurant_Gary_Danko-San_Francisco_California.html",
+            "zomato_id": 16849345
+        }
+    },
+    {
+        "business_name": "tartine_bakery_and_cafe",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/tartine-bakery-and-cafe-san-francisco",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d360064-Reviews-Tartine_Bakery-San_Francisco_California.html",
+            "zomato_id": 16851686
+        }
+    },
+    {
+        "business_name": "the_house",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/the-house-san-francisco",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d353908-Reviews-The_House-San_Francisco_California.html",
+            "zomato_id": 16844642
+        }
+    },
+    {
+        "business_name": "burma_superstar",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/burma-superstar-san-francisco-2",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d367027-Reviews-Burma_Superstar_Restaurant-San_Francisco_California.html",
+            "zomato_id": 16841211
+        }
+    },
+    {
+        "business_name": "kokkari_estiatorio",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/kokkari-estiatorio-san-francisco",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d353917-Reviews-Kokkari_Estiatorio-San_Francisco_California.html",
+            "zomato_id": 16845743
+        }
+    },
+    {
+        "business_name": "san_tung",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/san-tung-san-francisco-2",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d357156-Reviews-San_Tung-San_Francisco_California.html",
+            "zomato_id": 16849865
+        }
+    },
+    {
+        "business_name": "b_patisserie",
+        "data_tokens": {
+            "yelp_url": "https://www.yelp.com/biz/b-patisserie-san-francisco-2",
+            "tripadvisor_url": "https://www.tripadvisor.com/Restaurant_Review-g60713-d3915784-Reviews-B_Patisserie-San_Francisco_California.html",
+            "zomato_id": 16862034
+        }
+    }
+]

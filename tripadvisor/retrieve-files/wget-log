@@ -1,0 +1,11 @@
+--2020-03-28 21:07:18--  http://http_proxy=/
+Resolving http_proxy= (http_proxy=)... failed: nodename nor servname provided, or not known.
+wget: unable to resolve host address 'http_proxy='
+--2020-03-28 21:07:18--  https://www.tripadvisor.com/Restaurant_Review-g60713-d368725-Reviews-Little_Nepal-San_Francisco_California.html
+Resolving www.tripadvisor.com (www.tripadvisor.com)... 2.22.42.37
+Connecting to www.tripadvisor.com (www.tripadvisor.com)|2.22.42.37|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'files/little_nepal.html'
+
+files/little_nepal.html                 [  <=>                                                             ] 827.50K  73.9 B/s               

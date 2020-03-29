@@ -1,11 +1,11 @@
-def retrieve_file_paths(json_file_path, json_array_name, extension)
+def retrieve_file_paths(json_file_path, extension)
 
 	begin
 		business_urls = File.open json_file_path
 		json_data = JSON.load business_urls
 		business_urls.close
 
-		main_array = json_data[json_array_name]
+		main_array = json_data
 		file_paths = []
 
 		(0..main_array.length-1).step(1) do |i|
@@ -20,5 +20,3 @@ def retrieve_file_paths(json_file_path, json_array_name, extension)
 		puts error
 	end
 end
-
-# TODO: update local paths for BusinessInfo class and retrieve_html_file_paths function

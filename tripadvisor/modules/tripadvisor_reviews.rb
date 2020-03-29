@@ -1,10 +1,3 @@
-require_relative "../../requirements"
-require_relative "../../global-classes/review"
-
-require_relative "../../global-modules/retrieve_sql_credentials"
-require_relative "../../global-modules/push_reviews_sql"
-require_relative "../../global-modules/retrieve_html_file_paths"
-
 def reviews_scraper(html_files)
 
 	begin
@@ -15,12 +8,12 @@ def reviews_scraper(html_files)
 			parsed_page = Nokogiri::HTML(open(html_file))
 
 			# get url for current html_file
-			business_urls = File.open "retrieve-html-files/data-files/business_urls.json"
+			business_urls = File.open "../data-files/business_data_tokens.json"
 			json_data = JSON.load business_urls
 			business_urls.close
 
 			# get array of tripadvisor urls including review # flag "-or"
-			raw_html_file_url = json_data["business_urls"][i]["url"]
+			raw_html_file_url = json_data[i]["data_tokens"]["tripadvisor_url"]
 			puts raw_html_file_url, i
 			review_url_number = (parsed_page.css("a.pageNum.last.cx_brand_refresh_phase2").attribute("data-page-number").text.to_i-1)
 			puts review_url_number
@@ -39,7 +32,7 @@ def reviews_scraper(html_files)
 
 				#html_file_url = html_file_urls[y]
 				puts html_file_url
-				browser = Watir::Browser.new :safari
+				browser = Watir::Browser.new :safari, headless: true
 				browser.goto(html_file_url)
 
 				parsed_page = Nokogiri::HTML(open(html_file_url))
@@ -61,7 +54,8 @@ def reviews_scraper(html_files)
 					begin
 
 						# business_name
-						business_name =  html_file[31...].to_s.chomp(".html")
+						business_name =  html_file[21...].to_s.chomp(".html")
+						puts business_name
 
 						# title
 						raw_title = review_wrapper.css("span.noQuotes")[i].text.gsub!(/^\“|\”?$/, "").tr("'", "")
@@ -127,7 +121,7 @@ def reviews_scraper(html_files)
 						number_of_reviews = number_of_reviews_raw[i].text.chomp("reviews").split.join(" ").to_i
 
 						review_instance = Review.new(business_name, title, visit_date.to_s, review_date.to_s, star_rating, text, photos, username, number_of_reviews)
-						review_instances.push(review_instance)
+						push_reviews_sql(review_instance, "tripadvisor_reviews", 8425)
 
 					# in case of nil value error
 					rescue NoMethodError => error
@@ -138,10 +132,5 @@ def reviews_scraper(html_files)
 				browser.close
 			end
 		end
-		return review_instances
 	end
 end
-
-html_files = retrieve_html_file_paths("retrieve-html-files/data-files/business_urls.json")
-review_instances = reviews_scraper(html_files)
-push_reviews_sql(review_instances, "tripadvisor_reviews")

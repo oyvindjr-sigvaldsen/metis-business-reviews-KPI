@@ -1,3 +1,4 @@
 *.byebug_history
 *.db
-mysql_credentials.json
+sql_credentials.json
+zomato_api_key.txt
