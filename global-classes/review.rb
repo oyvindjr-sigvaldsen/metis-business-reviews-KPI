@@ -13,6 +13,6 @@ class Review
 	end
 
 	def display
-		puts "\n**#{@title}**\n#{@visit_date}\n#{@review_date}\n#{@star_rating}\n#{@text}\n#{@photos}\n#{@username}\n#{@number_of_reviews}"
+		puts "\n____#{@business_name}____\n#{@title}\n#{@visit_date}\n#{@review_date}\n#{@star_rating}\n#{@text}\n#{@photos}\n#{@username}\n#{@number_of_reviews}"
 	end
 end

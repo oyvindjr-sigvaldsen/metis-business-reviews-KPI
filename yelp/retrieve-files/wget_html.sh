@@ -1,39 +1,37 @@
 #!/bin/bash
-# requires jq homebrew module to read and parse .json
-# requires wget for sending http-requests
 
-# english wget log command : export LANG=en_GB.UTF-8
+wget_html() {
 
-# clear business-html-files dir
-cd html-files; rm *.html; cd ..;
-num_businesses=$(jq ".business_urls | length" data-files/business_urls.json);
+	num_businesses=$(jq ". | length" $data_tokens_file_path);
+	typeset -i i END
+	let END=$num_businesses i=0;
 
-echo $num_businesses;
+	while ((i<=END-1)); do
 
-typeset -i i END
-let END=$num_businesses i=0;
+		max_sleep=30
+		random_sleep=$(shuf -i 1-$max_sleep -n 1);
+		random_proxy=$(shuf -n 1 data-files/proxy_list.txt);
 
-while ((i<=END-1)); do
+		cluster=(
+					$(jq -r ".[$i] .business_name" $data_tokens_file_path)
+					$(jq -r ".[$i] .data_tokens .yelp_url" $data_tokens_file_path)
+				);
 
-	max_sleep=60
-	random_sleep=$(shuf -i 1-$max_sleep -n 1);
-	random_proxy=$(shuf -n 1 data-files/proxy_list.txt);
+		business_name=${cluster[0]}
+		url=${cluster[1]};
 
-	source ./progress-bar.sh;
-	echo "random_sleep : "$random_sleep" seconds";
-	progress-bar $random_sleep;
+		$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="files/$business_name.html" $url); true || $(wget --output-document="files/$business_name.html" $url);
 
-	cluster=(
-				$(jq -r ".business_urls[$i] .business_name" data-files/business_urls.json)
-				$(jq -r ".business_urls[$i] .url" data-files/business_urls.json)
-			);
+		source ./../../global-modules/progress-bar.sh;
+		echo "random_sleep : "$random_sleep" seconds";
+		progress-bar $random_sleep;
 
-	url=${cluster[1]};
-	$(wget -e use_proxy=yes http_proxy=$random_proxy --output-document="html-files/${cluster[0]}.html" $url); true || $(wget --output-document="html-files/${cluster[0]}.html" $url);
+		let i++;
+	done
+}
 
-	let i++;
-done
+export LANG=en_GB.UTF-8;
+cd files; rm *.html; cd ..;
 
-# TODO: merge business_urls.json from yelp and tripadvisor branches and move to global dir scope
-# TODO: move single proxy_list.txt to global scope, same folder as business_urls.json (merged version)
-# TODO: move single progress-bar.sh to global scope, same folder as business_Urls.json and proxy_list.txt
+data_tokens_file_path=../../data-files/business_data_tokens.json
+wget_html $data_tokens_file_path

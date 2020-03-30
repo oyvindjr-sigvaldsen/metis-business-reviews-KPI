@@ -1,8 +1,7 @@
 def reviews_scraper(html_files)
 
 	begin
-		review_instances = []
-
+		
 		html_files.each_with_index do |html_file, i|
 
 			parsed_page = Nokogiri::HTML(open(html_file))

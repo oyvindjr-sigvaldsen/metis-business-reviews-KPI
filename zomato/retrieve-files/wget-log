@@ -1,7 +1,0 @@
---2020-03-28 18:40:10--  http://http_proxy=/
-Aufl"osen des Hostnamens http_proxy= (http_proxy=)... fehlgeschlagen: nodename nor servname provided, or not known.
-wget: Host-Adresse >>http_proxy=<< kann nicht aufgel"ost werden
---2020-03-28 18:40:10--  https://api.zomato.com/v2/reviews.json//user?count=100&apikey=
-Aufl"osen des Hostnamens api.zomato.com (api.zomato.com)... 23.194.13.46
-Verbindungsaufbau zu api.zomato.com (api.zomato.com)|23.194.13.46|:443 ... verbunden.
-Es ist nicht m"oglich, eine SSL-Verbindung herzustellen.
