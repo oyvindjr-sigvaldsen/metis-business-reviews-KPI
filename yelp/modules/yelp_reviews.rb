@@ -54,7 +54,6 @@ def reviews_scraper(html_file_paths)
 				(0..text.length-1).step(1) do |i|
 
 					begin
-
 						if text[i][0] == " "
 							text[i][0] = ""
 						end
